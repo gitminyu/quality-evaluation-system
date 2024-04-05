@@ -1,24 +1,29 @@
-import logo from './logo.svg';
+import { Routes,Route } from 'react-router-dom';
 import './App.css';
-
+import {ConfigProvider} from 'antd'
+import LoginPage from './routes/loginPage';
+import MainPage from './routes/mainPage';
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <ConfigProvider
+      theme={
+        {
+          token:{
+            colorPrimary: '#85a5ff',
+            borderRadius:4
+          }
+        }
+      }
+    >
+       <div className="App">
+      <Routes>
+        <Route path='/' element={<LoginPage />} ></Route>
+        <Route path='/main' element={<MainPage />} ></Route>
+
+      </Routes>
     </div>
+    </ConfigProvider>
+   
   );
 }
 
