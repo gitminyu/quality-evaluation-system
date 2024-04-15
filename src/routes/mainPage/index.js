@@ -7,7 +7,7 @@ import {
     VideoCameraOutlined,
 } from '@ant-design/icons';
 import { Layout, Menu, Button, theme ,Avatar} from 'antd';
-import { useNavigate, Routes, Route } from 'react-router-dom'
+import { useNavigate, Routes, Route, Link  } from 'react-router-dom'
 import EvaluationPage from './components/evaluationPage';
 import ItemPage from './components/itemPage';
 import SystemPage from './components/systemPage';
@@ -39,24 +39,27 @@ function MainPage() {
                         onClick={changeMenu}
                         items={[
                             {
-                                key: '/user',
+                                key: '/main/user',
                                 icon: <UserOutlined />,
-                                label: '用户管理',
+                                label: <Link to="/user">用户管理</Link>,
                             },
                             {
-                                key: '/system',
+                                key: '/main/system',
                                 icon: <VideoCameraOutlined />,
-                                label: '系统管理',
+                                label: <Link to="/system">系统管理</Link>,
+
                             },
                             {
-                                key: '/item',
+                                key: '/main/item',
                                 icon: <UploadOutlined />,
-                                label: '评估项管理',
+                                label: <Link to="/item">评估项管理</Link>,
+
                             },
                             {
-                                key: '/evaluation',
+                                key: '/main/evaluation',
                                 icon: <UploadOutlined />,
-                                label: '系统评估',
+                                label: <Link to="/evaluation">系统评估</Link>,
+
                             }
                         ]}
                     />
@@ -73,7 +76,9 @@ function MainPage() {
                                 height: 64,
                             }}
                         />
-                        <Avatar src={<img src={url} alt="avatar" />} />
+                        <Avatar src={url} alt="avatar" />
+
+                        {/* <Avatar src={<img src={url} alt="avatar" />} /> */}
                     </Header>
                     <Content
                         style={{
@@ -84,14 +89,14 @@ function MainPage() {
                             borderRadius: borderRadiusLG,
                         }}
                     >
-                        <Routes>
+                        <Routes >
                             <Route path='/user' element={<UserPage/>}></Route>
                             <Route path='/system' element={<SystemPage/>}></Route>
                             <Route path='/item' element={<ItemPage/>}></Route>
                             <Route path='/evaluation' element={<EvaluationPage/>}></Route>
 
                         </Routes>
-                        Content
+                        
                     </Content>
                 </Layout>
             </Layout>

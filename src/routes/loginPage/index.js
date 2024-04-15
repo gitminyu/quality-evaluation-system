@@ -1,25 +1,51 @@
-import { Card, Form, Button, Input, Divider, Col, Row, Image } from "antd"
+import { Card, Form, Button, Input, Divider, Col, Row, Image ,message} from "antd"
 import {login,getVerifyCode,getCal}from "../../api"
 import {useState,useEffect} from "react"
+import { useNavigate  } from 'react-router-dom'
 import './index.css'
-function LoginPage() {
-    const [verticalUrl,setVerticalUrl] = useState('')
+function LoginPage(props) {
+    const [vertical,setVertical] = useState('')
+    const baseURL='http://localhost:8082'
+    const [form] = Form.useForm();
+    const navigate = useNavigate();
     useEffect(()=>{
         getVerify()
     },[])
     // 获取验证码
     function getVerify() {
-        getVerifyCode().then(()=>{
+        setVertical(`/getVerifyCode?${new Date().getTime()}`)
+        // getVerifyCode().then(()=>{
 
-        })
+        // })
     }
-    function onFinish() {
-
+    function onFinish(values) {
+        console.log(values,'value')
     }
     function onFinishFailed() {
 
     }
-    function handleLoginIn() {
+    async function handleLoginIn() {
+        try{
+            const value=await form.validateFields();
+            let data={
+                phone:value.phone.trim(),
+                password:value.password.trim(),
+                captcha:value.captcha.trim(),
+            }
+            // console.log(value,'value1')
+            login(value).then((res)=>{
+                if(res.code==='200'){
+                    message.success(res.msg);
+                    navigate("/main"); 
+                    
+                }else{
+                    message.error(res.msg);
+                    getVerify()
+                }
+            })
+        }catch{
+
+        }
 
     }
     return (
@@ -28,6 +54,7 @@ function LoginPage() {
                 style={{ width: 500 }}
             >
                 <Form
+                    form={form}
                     labelCol={{
                         span: 8,
                     }}
@@ -75,20 +102,20 @@ function LoginPage() {
                             <Col span={12}>
                                 <Form.Item
                                     noStyle
-                                    name="Captcha"
+                                    name="captcha"
 
                                 ><Input></Input>
                                 </Form.Item>
                             </Col>
                             <Col span={12}>
 
-                                <Image></Image>
+                                <img onClick={getVerify} src={`${baseURL}${vertical}`}></img>
 
                             </Col>
 
                         </Row>
                     </Form.Item>
-
+                    
 
 
                 </Form>
