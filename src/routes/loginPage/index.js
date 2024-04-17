@@ -50,8 +50,8 @@ function LoginPage(props) {
     }
     return (
         <div className="login-page">
-            <Card
-                style={{ width: 500 }}
+            <div
+               className="login-form"
             >
                 <Form
                     form={form}
@@ -120,7 +120,7 @@ function LoginPage(props) {
 
                 </Form>
                 <Button type='primary' onClick={handleLoginIn}>登录</Button>
-            </Card>
+            </div>
         </div>
 
     )

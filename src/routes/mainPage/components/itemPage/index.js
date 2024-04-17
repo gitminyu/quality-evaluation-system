@@ -7,7 +7,7 @@ import {
     ProFormField,
     useRefFunction,
   } from '@ant-design/pro-components';
-// import './index.css'
+import './index.css'
 function ItemPage() {
     const [item,setItem]=useState([])
     const [editableKeys, setEditableRowKeys] = useState([]);
@@ -41,8 +41,9 @@ function ItemPage() {
 
     }
     return (
-        <div>
-            <EditableProTable
+        <div >
+            <div>
+                <EditableProTable
                 expandable={{defaultExpandAllRows:true}}
                 scroll={{x:960}}
                 rowKey="id"
@@ -60,6 +61,8 @@ function ItemPage() {
                     onChange: setEditableRowKeys,
                   }}
             ></EditableProTable>
+            </div>
+            
         </div>
         
     )
